@@ -1,0 +1,118 @@
+openapi: 3.0.3
+info:
+  title: Conferences API
+  description: This is a sample Conferences API
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: bgranados@twilio.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+
+servers:
+  - url: http://127.0.0.1:4010
+
+tags:
+  - name: conferences
+    description: Everything about conferences
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+
+paths:
+  /conferences:
+    get:
+      tags:
+        - conferences
+      summary: Get all conferences
+      operationId: getConferences
+      responses:
+        "204":
+          description: No Content
+        "200":
+          description: A paged array of conferences
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/conferences"
+              example:
+                - id: conf1
+                  name: Hack a Boss Conference
+                  status: pending
+                  photoUrls: [http://swagger.io/image.jpg]
+                - id: conf2
+                  name: Hack a Boss Mini Conference
+                  status: pending
+                  photoUrls: [http://swagger.io/image.jpg]
+
+  /conferences/{id}:
+    get:
+      tags:
+        - conferences
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the conference to be retrived
+          schema:
+            type: string
+      summary: Get details of a conference
+      operationId: getConference
+      responses:
+        "200":
+          description: A conference
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/conference"
+              example:
+                id: conf1
+                name: Hack a Boss Conference
+                status: pending
+                photoUrls: [http://swagger.io/image.jpg]
+
+        "400":
+          description: Invalid ID supplied
+          content: {}
+        "404":
+          description: Conference not found
+          content: {}
+
+components:
+  schemas:
+    conference:
+      required:
+        - id
+        - name
+        - status
+      type: object
+      properties:
+        id:
+          type: string
+          example: PyConES22
+        name:
+          type: string
+          example: PyConES 2022
+        photoUrls:
+          type: array
+          items:
+            type: string
+            example: http://swagger.io/image.jpg
+        status:
+          type: string
+          description: pet status in the store
+          example: current
+          enum:
+            - past
+            - pending
+            - current
+            - future
+    conferences:
+      type: array
+      items:
+        $ref: "#/components/schemas/conference"

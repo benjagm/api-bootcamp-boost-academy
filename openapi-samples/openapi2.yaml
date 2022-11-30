@@ -1,0 +1,140 @@
+openapi: 3.0.3
+
+info:
+  title: Posts API
+  description: API for managing Posts.
+  version: 0.1.0
+
+externalDocs:
+  description: "JSONPlaceholder's guide"
+  url: https://jsonplaceholder.typicode.com/guide
+
+servers:
+  - url: https://jsonplaceholder.typicode.com
+    description: JSONPlaceholder
+
+paths:
+  "/posts":
+    get:
+      tags: ["posts"]
+      summary: Returns all posts
+      responses:
+        "200":
+          description: All went well
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/posts"
+    post:
+      tags: ["posts"]
+      summary: Create a new post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/post"
+        required: true
+      responses:
+        "200":
+          description: A post was created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/post"
+  "/posts/{id}":
+    parameters:
+      - name: id # Must be same as the value in the {}.
+        # Location of the parameter.
+        # Can be `path`, `cookie`, `query` or `header`
+        in: path
+        description: ID of the post
+        # Since this is in the path, the parameter HAS to be required
+        required: true
+        # Defining the type of the parameter
+        schema:
+          # In this case, it is just a string
+          type: string
+    get:
+      tags: ["post"]
+      summary: Get a single post
+      responses:
+        "200":
+          description: All went well
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/post"
+        # But this time, you can also get a 404 response,
+        # which is an empty JSON object.
+        "404":
+          description: Post not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+    put:
+      tags: ["post"]
+      summary: Update a post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/post"
+        required: true
+      responses:
+        "200":
+          description: All went well
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/post"
+        "404":
+          description: Post not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+    delete:
+      tags: ["post"]
+      summary: Delete a post
+      responses:
+        "200":
+          description: All went well
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+        # But this time, you can also get a 404 response,
+        # which is an empty JSON object.
+        "404":
+          description: Post not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+
+components:
+  schemas:
+    post:
+      type: object
+      properties:
+        id:
+          type: number
+          description: ID of the post
+        title:
+          type: string
+          description: Title of the post
+        body:
+          type: string
+          description: Body of the post
+        userId:
+          type: number
+          description: ID of the user who created the post
+    posts:
+      type: array
+      items:
+        $ref: "#/components/schemas/post"
