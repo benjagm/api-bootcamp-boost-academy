@@ -1,26 +1,21 @@
-{ "value" : 
-  [
-    {
-      "id": 1,
-      "description": "Item 1",
-      "price": {
-        "amount": 89.95,
-        "currency": "EUR"
-      },
-      "imageUrl": [
-        "http://swagger.io/image.jpg"
-      ]
+[
+  {
+    "id": 1,
+    "description": "Item 1",
+    "price": {
+      "amount": 89.95,
+      "currency": "EUR"
     },
-    {
-      "id": 2,
-      "description": "Item 2",
-      "price": {
-        "amount": 50.35,
-        "currency": "EUR"
-      },
-      "imageUrl": [
-        "http://swagger.io/image.jpg"
-      ]
-    }
-  ]
-}
+    "imageUrl": "http://swagger.io/image.jpg"
+  },
+  {
+    "id": 2,
+    "description": "Item 2",
+    "price": {
+      "amount": 50.35,
+      "currency": "EUR"
+    },
+    "imageUrl": "http://swagger.io/image.jpg"
+    
+  }
+]

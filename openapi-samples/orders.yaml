@@ -60,8 +60,7 @@ paths:
                 type: array
                 items:           
                   $ref: components/schemas/item.yaml
-              examples:
-                Success:
+              example:
                  $ref: components/examples/items-list.json
         "400":
           description: Invalid ID supplied
@@ -89,8 +88,7 @@ paths:
             application/json:
               schema:
                 $ref: components/schemas/item.yaml
-              examples:
-                Success:
+              example:
                   $ref: components/examples/item.json
         "400":
           description: Invalid ID supplied
