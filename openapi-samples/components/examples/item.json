@@ -1,0 +1,11 @@
+{ "value" : 
+  {
+    "id": 2,
+    "description": "Item 2",
+    "price": {
+      "amount": 50.35,
+      "currency": "EUR"
+    },
+    "imageUrl": "http://swagger.io/image.jpg"
+  }
+}

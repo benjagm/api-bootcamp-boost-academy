@@ -1,0 +1,16 @@
+type: object
+properties:
+  id:
+    description: Customer identifier
+    type: integer
+    example: 1
+  fullName:
+    description: Customer Full Name
+    type: string
+    minLength: 1
+    example: Robert Smith
+  avatarUrl:
+    description: Customer avatar
+    type: string
+    minLength: 1
+    example: /images/robert-smith.jpg

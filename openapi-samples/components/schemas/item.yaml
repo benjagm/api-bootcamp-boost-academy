@@ -1,0 +1,19 @@
+type: object
+properties:
+  id:
+    description: Cart identifier
+    type: integer
+    example: 1
+  price:
+    description: Item price  
+    $ref: ./money.yaml
+  description:
+    description: Product description
+    type: string
+    minLength: 1
+    example: Pen - Blue color
+  imageUrl:
+    description: Product image
+    type: string
+    minLength: 1
+    example: /images/pen.jpg

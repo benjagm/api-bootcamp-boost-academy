@@ -1,0 +1,107 @@
+openapi: 3.0.3
+info:
+  title: Orders API
+  description: This is a sample Orders API
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: bgranados@twilio.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+
+servers:
+  - url: http://127.0.0.1:4010
+
+tags:
+  - name: Items
+    description: Everything about Items
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+  - name: Orders
+    description: Everything about Orders
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+  - name: Customers
+    description: Everything about Customers
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+  - name: Cart
+    description: Everything about Carts
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+
+paths:
+  /items:
+    get:
+      security:
+        - api_key: []      
+      tags:
+        - Items
+      summary: Get all Items
+      operationId: getItems
+      responses:
+        "204":
+          description: No Content
+        "200":
+          description: A paged array of items
+          content:
+            application/json:
+              schema:
+                description: Shopping card items
+                type: array
+                items:           
+                  $ref: components/schemas/item.yaml
+              examples:
+                Success:
+                 $ref: components/examples/items-list.json
+        "400":
+          description: Invalid ID supplied
+          content: {}                        
+
+  /items/{id}:
+    get:
+      security:
+        - api_key: []
+      tags:
+        - Item
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the item to be retrived
+          schema:
+            type: string
+      summary: Get details of an Item
+      operationId: getItem
+      responses:
+        "200":
+          description: An Item
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/item.yaml
+              examples:
+                Success:
+                  $ref: components/examples/item.json
+        "400":
+          description: Invalid ID supplied
+          content: {}
+        "404":
+          description: Conference not found
+          content: {}
+
+components:
+  securitySchemes:
+    api_key:
+      type: apiKey
+      in: header
+      name: api_key

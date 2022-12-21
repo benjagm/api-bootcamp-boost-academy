@@ -1,0 +1,13 @@
+type: object
+properties:
+  id:
+    description: Cart identifier
+    type: integer
+    example: 1
+  amount:
+    description: Items amount
+    type: integer
+    example: 1
+  item:
+    description: Item resource
+    $ref: ./item.yaml

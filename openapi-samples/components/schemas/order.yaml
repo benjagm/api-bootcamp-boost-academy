@@ -1,0 +1,22 @@
+type: object
+properties:
+  id:
+    description: Order identifier
+    type: integer
+    example: 1
+  cart:
+    description: Shopping Cart
+    $ref: ./cart.yaml  
+  customer:
+    description: Customer  
+    $ref: ./customer.yaml  
+  status:
+    description: Order Status    
+    type: string
+    enum:
+      - Initiated
+      - Paid
+      - Sent
+      - Cancelled
+      - Completed
+    example: Paid

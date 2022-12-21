@@ -1,0 +1,17 @@
+type: object
+properties:
+  id:
+    description: cart identifier
+    type: integer
+    example: 1
+  customer:
+    description: Customer
+    $ref: ./customer.yaml  
+  total:
+    description: Shopping card total amount  
+    $ref: ./money.yaml
+  cartItems:
+    description: Shopping card items
+    type: array
+    items:
+      $ref: ./cart-item.yaml
