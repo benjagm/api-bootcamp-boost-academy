@@ -1,0 +1,13 @@
+type: object
+properties:
+  error:
+    type: object
+    properties:
+      message:
+        type: string
+        description: Error message
+        example: "There is an error on field XXXXXX"
+      code:
+        description: Error code
+        type: string
+        example: "XXXXX1"

@@ -64,7 +64,10 @@ paths:
                  $ref: components/examples/items-list.json
         "400":
           description: Invalid ID supplied
-          content: {}                        
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/error.yaml                       
 
   /items/{id}:
     get:
@@ -92,10 +95,16 @@ paths:
                   $ref: components/examples/item.json
         "400":
           description: Invalid ID supplied
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/error.yaml      
         "404":
           description: Conference not found
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/error.yaml      
 
 components:
   securitySchemes:
