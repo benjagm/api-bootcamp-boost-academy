@@ -56,7 +56,7 @@ paths:
           content:
             application/json:
               schema:
-                description: Shopping card items
+                description: Shop items
                 type: array
                 items:           
                   $ref: components/schemas/item.yaml
