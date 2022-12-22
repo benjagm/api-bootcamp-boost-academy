@@ -15,7 +15,7 @@ externalDocs:
   url: http://swagger.io
 
 servers:
-  - url: http://127.0.0.1:4010
+  - url: http://127.0.0.1:4010/v1
 
 tags:
   - name: Items
@@ -33,13 +33,195 @@ tags:
     externalDocs:
       description: Find out more
       url: http://swagger.io
-  - name: Cart
+  - name: Carts
     description: Everything about Carts
     externalDocs:
       description: Find out more
       url: http://swagger.io
 
 paths:
+  /carts:
+    get:
+      security:
+        - api_key: []      
+      tags:
+        - Carts
+      summary: Get all Carts
+      operationId: getCarts
+      responses:
+        "204":
+          description: No Content
+        "200":
+          description: A paged array of Carts
+          content:
+            application/json:
+              schema:
+                description: Carts
+                type: array
+                items:           
+                  $ref: components/schemas/cart.yaml
+
+        "400":
+          description: Client error
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/error.yaml       
+    post:
+      security:
+        - api_key: []      
+      tags:
+        - Carts
+      summary: Create a cart
+      operationId: createCart
+      requestBody:
+              description: Create a new cart
+              content:
+                application/json:
+                  schema:
+                    $ref: components/schemas/cart.yaml      
+      responses:
+        "201":
+          description: No Content
+        "400":
+          description: Client error
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/error.yaml    
+  /carts/{id}:
+    get:
+      security:
+        - api_key: []
+      tags:
+        - Carts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Carts to be retrived
+          schema:
+            type: string
+      summary: Get details of an Cart
+      operationId: getCart
+      responses:
+        "200":
+          description: An Cart
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/item.yaml
+        "400":
+          description: Client error
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/error.yaml      
+        "404":
+          description: Cart not found
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/error.yaml      
+  /carts/{id}/cart-items:
+    get: 
+      security:
+        - api_key: []      
+      tags:
+        - Carts
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Cart to be retrived
+          schema:
+            type: string
+      summary: Get all Cart items
+      operationId: getCartItems
+      responses:
+        "204":
+          description: No Content
+        "200":
+          description: A paged array of Cart items
+          content:
+            application/json:
+              schema:
+                description: Cart items
+                type: array
+                items:           
+                  $ref: components/schemas/cart-item.yaml
+
+        "400":
+          description: Client error
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/error.yaml       
+    post:
+      security:
+        - api_key: []
+      tags:
+        - Carts
+      summary: Add cart item
+      operationId: addCartItem
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Cart to be retrived
+          schema:
+            type: string
+      requestBody:
+        description: Add cart item
+        content:
+          application/json:
+            schema:
+              $ref: components/schemas/cart-item.yaml
+      responses:
+        "201":
+          description: An Cart
+        "400":
+          description: Client error
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/error.yaml      
+        "404":
+          description: Conference not found
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/error.yaml      
+  /carts/{id}/cart-items/{id}:
+    delete: 
+      security:
+        - api_key: []
+      tags:
+        - Carts
+      summary: Get details of an Cart
+      operationId: deleteCartItem2
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Carts to be retrived
+          schema:
+            type: string
+      responses:
+        "204":
+          description: An Cart
+        "400":
+          description: Client error
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/error.yaml      
+        "404":
+          description: Conference not found
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/error.yaml   
   /items:
     get:
       security:
@@ -63,23 +245,22 @@ paths:
               example:
                  $ref: components/examples/items-list.json
         "400":
-          description: Invalid ID supplied
+          description: Client error
           content:
             application/json:
               schema:
                 $ref: components/schemas/error.yaml                       
-
   /items/{id}:
     get:
       security:
         - api_key: []
       tags:
-        - Item
+        - Items
       parameters:
         - name: id
           in: path
           required: true
-          description: The id of the item to be retrived
+          description: The id of the Item to be retrived
           schema:
             type: string
       summary: Get details of an Item
@@ -92,20 +273,151 @@ paths:
               schema:
                 $ref: components/schemas/item.yaml
               example:
-                  $ref: components/examples/item.json
+                 $ref: components/examples/item.json
         "400":
-          description: Invalid ID supplied
+          description: Client error
           content:
             application/json:
               schema:
                 $ref: components/schemas/error.yaml      
         "404":
-          description: Conference not found
+          description: Cart not found
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/error.yaml  
+  /orders:
+    get:
+      security:
+        - api_key: []      
+      tags:
+        - Orders
+      summary: Get all Orders
+      operationId: getOrders
+      responses:
+        "204":
+          description: No Content
+        "200":
+          description: A paged array of Orders
+          content:
+            application/json:
+              schema:
+                description: Orders
+                type: array
+                items:           
+                  $ref: components/schemas/order.yaml
+
+        "400":
+          description: Client error
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/error.yaml     
+    post:
+      security:
+        - api_key: []
+      tags:
+        - Orders
+      summary: Add order
+      operationId: addOrder
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Order
+          schema:
+            type: string
+      requestBody:
+              description: Create a new Order
+              content:
+                application/json:
+                  schema:
+                    $ref: components/schemas/order.yaml
+      responses:
+        "201":
+          description: Order creater
+        "400":
+          description: Client error
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/error.yaml  
+  /orders/{id}:
+    get:
+      security:
+        - api_key: []
+      tags:
+        - Orders
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the Order to be retrived
+          schema:
+            type: string
+      summary: Get details of an Order
+      operationId: getOrder
+      responses:
+        "200":
+          description: An Order
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/order.yaml
+        "400":
+          description: Client error
           content:
             application/json:
               schema:
                 $ref: components/schemas/error.yaml      
+        "404":
+          description: Order not found
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/error.yaml  
+  /customers:
+    get:
+      security:
+        - api_key: []      
+      tags:
+        - Customers
+      summary: Get all Customers
+      operationId: getCustomers
+      parameters:
+        - name: id
+          in: query
+          description: Find Customer by id
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: fullNameContains
+          in: query
+          description: Find Customer by name
+          required: false
+          schema:
+            type: string
+            default: Smith
+      responses:
+        "204":
+          description: No Content
+        "200":
+          description: A paged array of Customers
+          content:
+            application/json:
+              schema:
+                description: Shop Customers
+                type: array
+                items:           
+                  $ref: components/schemas/customer.yaml
 
+        "400":
+          description: Client error
+          content:
+            application/json:
+              schema:
+                $ref: components/schemas/error.yaml   
 components:
   securitySchemes:
     api_key:
